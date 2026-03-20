@@ -1,11 +1,15 @@
-<div class="container mt-5">
-    <h2>Eliminar Cliente</h2>
+{% extends 'base.html' %}
 
-    <p>¿Seguro que deseas eliminar a {{ customer.first_name }} {{ customer.last_name }}?</p>
+{% block content %}
 
-    <form method="post">
-        {% csrf_token %}
-        <button class="btn btn-danger">Eliminar</button>
-        <a href="{% url 'customer_list' %}" class="btn btn-secondary">Cancelar</a>
-    </form>
-</div>
+<h2>Eliminar Cliente</h2>
+
+<p>¿Estás seguro de que deseas eliminar este cliente?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger">Eliminar</button>
+    <a href="{% url 'customer_list' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+
+{% endblock %}

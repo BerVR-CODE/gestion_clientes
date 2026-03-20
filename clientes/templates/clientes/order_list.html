@@ -1,39 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Ordenes</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+{% extends 'base.html' %}
 
-<div class="container mt-4">
-    <h2>Ordenes</h2>
+{% block content %}
 
-    <a href="{% url 'order_create' %}" class="btn btn-primary mb-3">Nueva Orden</a>
+<h2>Lista de Órdenes</h2>
 
-    <table class="table table-bordered">
+<!-- BOTÓN AGREGAR ORDEN -->
+<a href="{% url 'order_create' %}" class="btn btn-primary mb-3">
+    Agregar Orden
+</a>
+
+<!-- TABLA DE ÓRDENES -->
+<table class="table table-striped">
+    <thead>
         <tr>
+            <th>Número de Orden</th>
             <th>Cliente</th>
-            <th>Producto</th>
-            <th>Cantidad</th>
             <th>Fecha</th>
+            <th>Monto Total</th>
             <th>Acciones</th>
         </tr>
-
-        {% for o in orders %}
+    </thead>
+    <tbody>
+        {% for order in orders %}
         <tr>
-            <td>{{ o.customer.first_name }} {{ o.customer.last_name }}</td>
-            <td>{{ o.product }}</td>
-            <td>{{ o.quantity }}</td>
-            <td>{{ o.date }}</td>
+            <td>{{ order.order_number }}</td>
+            <td>{{ order.customer.first_name }} {{ order.customer.last_name }}</td>
+            <td>{{ order.order_date }}</td>
+            <td>{{ order.total_amount }}</td>
             <td>
-                <a href="{% url 'order_update' o.id %}" class="btn btn-warning btn-sm">Editar</a>
-                <a href="{% url 'order_delete' o.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                <a href="{% url 'order_update' order.id %}" class="btn btn-warning btn-sm">Editar</a>
+                <a href="{% url 'order_delete' order.id %}" class="btn btn-danger btn-sm">Eliminar</a>
             </td>
         </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" class="text-center">No hay órdenes registradas.</td>
+        </tr>
         {% endfor %}
-    </table>
-</div>
+    </tbody>
+</table>
 
-</body>
-</html>
+{% endblock %}

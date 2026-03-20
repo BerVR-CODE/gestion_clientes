@@ -17,7 +17,11 @@ class CustomerForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = ['order_number', 'order_date', 'total_amount', 'customer']  # incluimos customer
+        widgets = {
+            'customer': forms.HiddenInput(),  # 🔑 oculto en el formulario
+            'order_date': forms.DateInput(attrs={'type': 'date'}),  # opcional: selector de fecha
+        }
     
     def clean_total_amount(self):
         total_amount = self.cleaned_data.get('total_amount')
