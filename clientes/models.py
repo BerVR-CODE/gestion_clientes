@@ -16,5 +16,6 @@ class Order  (models.Model):
      order_date = models.DateField()
      total_amount = models.DecimalField(max_digits=10, decimal_places=2)
      customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='orders')
+     
      def __str__(self):
             return f"Order {self.order_number} - {self.customer.first_name} {self.customer.last_name}"
